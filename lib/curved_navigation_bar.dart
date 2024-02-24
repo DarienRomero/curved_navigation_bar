@@ -16,6 +16,7 @@ class CurvedNavigationBar extends StatefulWidget {
   final Curve animationCurve;
   final Duration animationDuration;
   final double height;
+  final Function onNotTap;
 
   CurvedNavigationBar({
     Key? key,
@@ -29,6 +30,7 @@ class CurvedNavigationBar extends StatefulWidget {
     this.animationCurve = Curves.easeOut,
     this.animationDuration = const Duration(milliseconds: 600),
     this.height = 75.0,
+    required this.onNotTap
   })  : letIndexChange = letIndexChange ?? ((_) => true),
         assert(items != null),
         assert(items.length >= 1),
@@ -166,6 +168,7 @@ class CurvedNavigationBarState extends State<CurvedNavigationBar>
 
   void _buttonTap(int index) {
     if (!widget.letIndexChange(index)) {
+      widget.onNotTap();
       return;
     }
     if (widget.onTap != null) {
